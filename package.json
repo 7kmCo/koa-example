@@ -1,0 +1,31 @@
+{
+  "name": "koa-boilerplate",
+  "version": "1.0.0",
+  "description": "Starter kit of Koa and Sequelize",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app",
+    "start": "NODE_ENV=production node app"
+  },
+  "keywords": [
+    "koa",
+    "sequelize",
+    "mysql",
+    "koa",
+    "starter"
+  ],
+  "author": "Foad Yousefi <foadyousefi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-qs": "^2.0.0",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.39.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
