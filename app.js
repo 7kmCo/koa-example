@@ -25,7 +25,7 @@ app
 	.use(passport.session())
 	.use(router.routes())
 	.use(router.allowedMethods())
-  
+
 db.sequelize.sync().then(() => {
   app.listen(3000)
 })

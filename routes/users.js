@@ -28,6 +28,17 @@ router.post('/login', async (ctx, next) => {
 	await next()
 })
 
+/**
+ * Login user.
+ *
+ * @param object				Object containing username and password
+ * @returns array 			Array of users
+ */
+router.get('/logout', (ctx) => {
+	ctx.logout()
+  ctx.redirect('/')
+})
+
  /**
 	* Get all users.
 	*
