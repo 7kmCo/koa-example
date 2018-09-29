@@ -28,3 +28,24 @@ npm install --save sequelize sequelize-cli mysql2
 node_modules/.bin/sequelize init
 node_modules/.bin/sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string
 ```
+
+#### Authentication
+
+There is several authentication strategies available. You can use which one you want and remove those you don't want.
+
+Available strategies: 
+
+* local
+* google
+* twitter
+* facebook
+
+For routes you want to be accessable only by authenticated users, `authenticated` middleware can be used like:
+
+```js
+router.get('/authenticated-route', authenticated(), async (ctx, next) => {
+  ctx.body = 'You are logged in'
+})
+```
+
+Authenticated middleware is in `/utils/index.js`
