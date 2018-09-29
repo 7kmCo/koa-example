@@ -16,7 +16,7 @@ This will start the application and create an sqlite database in your app dir.
 Just open [http://localhost:3000](http://localhost:3000).
 
 
-#### Sequelize Setup
+### Sequelize Setup
 
 Now we will install all sequelize related modules.
 
@@ -29,7 +29,8 @@ node_modules/.bin/sequelize init
 node_modules/.bin/sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string
 ```
 
-#### Authentication
+
+### Authentication
 
 There is several authentication strategies available. You can use which one you want and remove those you don't want.
 
