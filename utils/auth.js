@@ -40,13 +40,16 @@ const LocalStrategy = require('passport-local').Strategy
         email: username
       }
     })
-    
-    bcrypt.compare(password, user.password, (error, response) => {
-      if (response) {
-        done(null, user)
-      } else {
-        done(null, false)
-      }
-    })
+    if (user) {
+      bcrypt.compare(password, user.password, (error, response) => {
+        if (response) {
+          done(null, user)
+        } else {
+          done(null, false)
+        }
+      })
+    } else {
+      done(null, false)
+    }
   }
 ))
