@@ -50,3 +50,13 @@ router.get('/authenticated-route', authenticated(), async (ctx, next) => {
 ```
 
 Authenticated middleware is in `/utils/index.js`
+
+## Database Relationships
+
+For demonstrating ORM relationship, Post model created. The relationship is between users and posts like"
+
+```js
+  Post.belongsTo(User, {as: 'Author'})
+```
+
+You can find examples of relationship when creating new post, which each post will be associated to a user and also in route `/posts/user-posts/` which gets all posts of logged in user.
