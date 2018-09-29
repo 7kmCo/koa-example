@@ -72,7 +72,7 @@ router.get('/auth/authenticated', async (ctx, next) => {
  * Create new user
  * 
  * @param object 					User object to be created
- * @returns object 				Newly created user object
+ * @returns object|exception 				Newly created user object or exception
  */
 router.post('/', async (ctx, next) => {
 	ctx.checkBody('firstName', 'First name can\'t be empty').notEmpty()
@@ -85,8 +85,12 @@ router.post('/', async (ctx, next) => {
 		ctx.body = `There have been validation errors: ${errors}`
 	} else {
 		ctx.request.body.password = await bcrypt.hash(ctx.request.body.password, saltRounds)
-		const user = await User.create(ctx.request.body)
-		ctx.body = user
+		try {
+			const user = await User.create(ctx.request.body)
+			ctx.body = user
+		} catch (error) {
+			ctx.body = error
+		}
 	}
 	await next()
 })
