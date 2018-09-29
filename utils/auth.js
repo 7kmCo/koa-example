@@ -93,6 +93,12 @@ passport.use(new GoogleStrategy({
   }
 ))
 
+/**
+ * Facebook strategy of Passport.js 
+ * 
+ * @param
+ * @returns
+ */
 const FacebookStrategy = require('passport-facebook').Strategy
 passport.use(new FacebookStrategy({
     clientID: 'facebook-app-id',
@@ -127,6 +133,12 @@ passport.use(new FacebookStrategy({
   }
 ))
 
+/**
+ * Twitter strategy of Passport.js 
+ * 
+ * @param
+ * @returns
+ */
 const TwitterStrategy = require('passport-twitter').Strategy
 passport.use(new TwitterStrategy({
     consumerKey: 'twitter-client-id',
