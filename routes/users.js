@@ -92,6 +92,29 @@ router.get('/auth/google/callback',
 )
 
 /**
+ * Facebook authentication route
+ * 
+ * @param 
+ * @returns
+ */
+router.get('/auth/facebook',
+  passport.authenticate('facebook', { scope: 'email' })
+)
+
+/**
+ * Facebook authentication callback
+ * 
+ * @param
+ * @returns
+ */
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/users/auth/authenticated',
+    failureRedirect: '/'
+  })
+)
+
+/**
  * Create new user
  * 
  * @param object 					User object to be created
