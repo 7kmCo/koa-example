@@ -3,6 +3,7 @@ const router = new Router()
 const passport = require('koa-passport')
 const bcrypt = require('bcrypt')
 const {User} = require('../models')
+const {authenticated} = require('../utils')
 
 
 const saltRounds = 10
@@ -69,14 +70,8 @@ router.get('/:id', async (ctx, next) => {
  * @param integer
  * @returns object|null 	User object or null
  */
-router.get('/auth/authenticated', async (ctx, next) => {
-	if (ctx.isAuthenticated()) {
-		ctx.body = { msg: 'Authenticated' }
-		} else {
-			ctx.body = { msg: 'Not Authenticated' }
-		  // ctx.redirect('/')
-		}
-	await next()
+router.get('/auth/authenticated', authenticated(), async (ctx, next) => {
+	ctx.body = { msg: 'Authenticated', user: ctx.state.user }
 })
 
 /**
