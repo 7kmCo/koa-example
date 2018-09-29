@@ -177,9 +177,13 @@ router.post('/', async (ctx, next) => {
  * @returns object 				Updated user object
  */
 router.patch('/:id', async (ctx, next) => {
-	const user = await User.findById(ctx.params.id)
-	const updatedUser = await user.update(ctx.request.body)
-	ctx.body = updatedUser
+	try {
+		const user = await User.findById(ctx.params.id)
+		const updatedUser = await user.update(ctx.request.body)
+		ctx.body = updatedUser
+  } catch (error) {
+    ctx.body = `There have been some errors: ${error}`
+  }
 	await next()
 })
 
@@ -190,9 +194,13 @@ router.patch('/:id', async (ctx, next) => {
  * @returns object|null 	Deleted user object
  */
 router.delete('/:id', async (ctx, next) => {
-	const user = await User.findById(ctx.params.id)
-	const deleted = await user.destroy()
-	ctx.body = deleted
+	try {
+		const user = await User.findById(ctx.params.id)
+		const deleted = await user.destroy()
+		ctx.body = deleted
+  } catch (error) {
+    ctx.body = `There have been some errors: ${error}`
+  }
 	await next()
 })
 
