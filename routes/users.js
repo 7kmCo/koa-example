@@ -60,13 +60,36 @@ router.get('/:id', async (ctx, next) => {
  */
 router.get('/auth/authenticated', async (ctx, next) => {
 	if (ctx.isAuthenticated()) {
-		ctx.body = 'Authenticated'
+		ctx.body = { msg: 'Authenticated' }
 		} else {
-			ctx.body = { msg: 'Not Authenticated'}
+			ctx.body = { msg: 'Not Authenticated' }
 		  // ctx.redirect('/')
 		}
 	await next()
 })
+
+/**
+ * Google authentication route
+ * 
+ * @param 
+ * @returns
+ */
+router.get('/auth/google',
+  passport.authenticate('google')
+)
+
+/**
+ * Google authentication callback
+ * 
+ * @param
+ * @returns
+ */
+router.get('/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/users/auth/authenticated',
+    failureRedirect: '/'
+  })
+)
 
 /**
  * Create new user
