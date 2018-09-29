@@ -126,3 +126,38 @@ passport.use(new FacebookStrategy({
     }
   }
 ))
+
+const TwitterStrategy = require('passport-twitter').Strategy
+passport.use(new TwitterStrategy({
+    consumerKey: 'twitter-client-id',
+    consumerSecret: 'twitter-client-secret',
+    callbackURL: 'http://localhost:' + (process.env.PORT || 3000) + '/users/auth/twitter/callback',
+    includeEmail: true
+  },
+  async (token, tokenSecret, profile, done) => {
+    // Retrieve user from database, if exists
+    const user = await User.findOne({
+      where: {
+        email: profile.emails[0].value
+      }
+    })
+    if (user) {
+      done(null, user)
+    } else {
+      // If user not exist, create it
+      const newUser = {
+        firstName: profile.username,
+        lastName: profile.username,
+        password: 'password-is-from-twitter',
+        email: profile.emails[0].value
+      }
+      const createdUser = await User.create(newUser)
+      if (createdUser) {
+        done(null, createdUser)
+      } else {
+        done(null, false)
+      }
+    }
+    console.log(profile)
+  }
+))

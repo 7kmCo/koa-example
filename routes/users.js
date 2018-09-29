@@ -98,7 +98,7 @@ router.get('/auth/google/callback',
  * @returns
  */
 router.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: 'email' })
+  passport.authenticate('facebook')
 )
 
 /**
@@ -109,6 +109,29 @@ router.get('/auth/facebook',
  */
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
+    successRedirect: '/users/auth/authenticated',
+    failureRedirect: '/'
+  })
+)
+
+/**
+ * Twitter authentication route
+ * 
+ * @param 
+ * @returns
+ */
+router.get('/auth/twitter',
+  passport.authenticate('twitter')
+)
+
+/**
+ * Twitter authentication callback
+ * 
+ * @param
+ * @returns
+ */
+router.get('/auth/twitter/callback',
+  passport.authenticate('twitter', {
     successRedirect: '/users/auth/authenticated',
     failureRedirect: '/'
   })
