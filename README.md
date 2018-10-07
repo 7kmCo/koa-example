@@ -12,7 +12,7 @@ npm install
 npm start
 ```
 
-This will start the application and create an sqlite database in your app dir.
+This will start the application and create database tables.
 Just open [http://localhost:3000](http://localhost:3000).
 
 
