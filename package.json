@@ -17,23 +17,23 @@
   "author": "Foad Yousefi <foadyousefi@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.1",
-    "koa": "^2.5.3",
+    "bcrypt": "^3.0.2",
+    "koa": "^2.6.2",
     "koa-async-validator": "^0.1.2",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-passport": "^4.1.1",
     "koa-qs": "^2.0.0",
     "koa-router": "^7.4.0",
-    "koa-session": "^5.9.0",
-    "mysql2": "^1.6.1",
+    "koa-session": "^5.10.0",
+    "mysql2": "^1.6.4",
     "passport-facebook": "^2.1.1",
     "passport-google-auth": "^1.0.2",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.41.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.6"
   }
 }
