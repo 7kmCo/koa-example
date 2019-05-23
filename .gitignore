@@ -1,1 +1,48 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+# Dependencies
 node_modules
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Outputs
+*.pyc
+manifest.json
+.credstash.json
+.npmrc
+.yarnrc
+dist
+.serverless
+.webpack
+coverage
+db_data
+
+# Temp dir
+tmp
+/local-env
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.audit.json
+
+# Generated
+generated/*

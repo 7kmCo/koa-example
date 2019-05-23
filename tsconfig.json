@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "declaration": true,
+    //"outDir": "./dist",
+    "noEmit": true,
+    "lib": ["dom", "es5", "es6", "es7", "esnext", "esnext.asynciterable"],
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "keyofStringsOnly": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "types": ["jest", "isomorphic-fetch", "node"]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": ["node_modules/**/*", "generated/**/*", "tools/**/*"]
+}
