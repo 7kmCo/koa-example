@@ -1,6 +1,6 @@
 const passport = require('koa-passport')
 const bcrypt = require('bcrypt')
-const {User} = require('../models')
+const {User} = require('../models/database')
 
 /**
  * Serialize user

@@ -64,11 +64,6 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.5"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && tsc -p ./tsconfig.json && yarn test"
-    }
-  },
   "lint-staged": {
     "*.ts": [
       "tslint --fix",
