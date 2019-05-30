@@ -2,13 +2,10 @@ const Router = require('koa-router');
 const router = new Router();
 const passport = require('koa-passport');
 const bcrypt = require('bcrypt');
-const db = require('../models/database');
 const { authenticated } = require('../utils');
-const util = require('util');
+const User = require('../models/user')
 
 const saltRounds = 10;
-
-const dbQuery = util.promisify(db.query);
 
 // User routes
 
@@ -49,7 +46,7 @@ router.get('/logout', ctx => {
  * @returns array 			Array of users
  */
 router.get('/', async (ctx, next) => {
-  const allUsers = await db.findAll();
+  const allUsers = await User.findAll();
   ctx.body = allUsers;
   await next();
 });
@@ -61,8 +58,13 @@ router.get('/', async (ctx, next) => {
  * @returns object|null 	User object or null
  */
 router.get('/:id', async (ctx, next) => {
-  const res = await dbQuery('SELECT * FROM users WHERE id = $1', [ctx.params.id])
-  ctx.body = res.rows[0]
+  const user = await User.findById(ctx.params.id)
+  if(user){
+    ctx.body = user;
+  } else{
+    ctx.status = 404;
+    ctx.body = `User with id ${ctx.params.id} was not found.`;
+  }
 });
 
 /**
@@ -161,7 +163,7 @@ router.post('/', async (ctx, next) => {
   } else {
     ctx.request.body.password = await bcrypt.hash(ctx.request.body.password, saltRounds);
     try {
-      const user = await db.create(ctx.request.body);
+      const user = await User.create(ctx.request.body);
       ctx.body = user;
     } catch (error) {
       ctx.body = error;
@@ -178,8 +180,7 @@ router.post('/', async (ctx, next) => {
  */
 router.patch('/:id', async (ctx, next) => {
   try {
-    const user = await db.findById(ctx.params.id);
-    const updatedUser = await user.update(ctx.request.body);
+    const updatedUser = await User.update(ctx.params.id, ctx.request.body);
     ctx.body = updatedUser;
   } catch (error) {
     ctx.body = `There have been some errors: ${error}`;
@@ -195,8 +196,7 @@ router.patch('/:id', async (ctx, next) => {
  */
 router.delete('/:id', async (ctx, next) => {
   try {
-    const user = await db.findById(ctx.params.id);
-    const deleted = await user.destroy();
+    await User.deleteById(ctx.params.id); //should be just disabled
     ctx.body = deleted;
   } catch (error) {
     ctx.body = `There have been some errors: ${error}`;

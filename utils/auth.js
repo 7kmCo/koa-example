@@ -1,6 +1,6 @@
 const passport = require('koa-passport')
 const bcrypt = require('bcrypt')
-const {User} = require('../models/database')
+const User = require('../models/user')
 
 /**
  * Serialize user
@@ -35,11 +35,7 @@ passport.deserializeUser(async (id, done) => {
  */
 const LocalStrategy = require('passport-local').Strategy
   passport.use(new LocalStrategy(async (username, password, done) => {
-    const user = await User.findOne({
-      where: {
-        email: username
-      }
-    })
+    const user = await User.findOne(username)
     if (user) {
       bcrypt.compare(password, user.password, (error, response) => {
         if (response) {
@@ -68,11 +64,7 @@ passport.use(new GoogleStrategy({
   },
   async (token, tokenSecret, profile, done) => {
     // Retrieve user from database, if exists
-    const user = await User.findOne({
-      where: {
-        email: profile.emails[0].value
-      }
-    })
+    const user = await User.findOne(profile.emails[0].value)
     if (user) {
       done(null, user)
     } else {
@@ -108,11 +100,7 @@ passport.use(new FacebookStrategy({
   },
   async (token, tokenSecret, profile, done) => {
      // Retrieve user from database, if exists
-     const user = await User.findOne({
-      where: {
-        email: profile.emails[0].value
-      }
-    })
+     const user = await User.findOne(profile.emails[0].value)
     if (user) {
       done(null, user)
     } else {
@@ -148,11 +136,7 @@ passport.use(new TwitterStrategy({
   },
   async (token, tokenSecret, profile, done) => {
     // Retrieve user from database, if exists
-    const user = await User.findOne({
-      where: {
-        email: profile.emails[0].value
-      }
-    })
+    const user = await User.findOne(profile.emails[0].value)
     if (user) {
       done(null, user)
     } else {
