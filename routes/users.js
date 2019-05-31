@@ -144,6 +144,28 @@ router.get(
 );
 
 /**
+ * LinkedIn authentication route
+ *
+ * @param
+ * @returns
+ */
+router.get('/auth/linkedin', passport.authenticate('linkedin'));
+
+/**
+ * LinkedIn authentication callback
+ *
+ * @param
+ * @returns
+ */
+router.get(
+  '/auth/linkedin/callback',
+  passport.authenticate('linkedin', {
+    successRedirect: '/users/auth/authenticated',
+    failureRedirect: '/'
+  })
+);
+
+/**
  * Create new user
  *
  * @param object 					User object to be created

@@ -50,6 +50,7 @@
     "lint-staged": "^8.1.7",
     "passport-facebook": "^3.0.0",
     "passport-google-auth": "^1.0.2",
+    "passport-linkedin": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "pg": "^7.11.0",

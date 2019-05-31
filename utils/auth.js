@@ -157,3 +157,38 @@ passport.use(new TwitterStrategy({
     console.log(profile)
   }
 ))
+
+/**
+ * LinkedIn strategy of Passport.js 
+ * 
+ * @param
+ * @returns
+ */
+const LinkedInStrategy = require('passport-linkedin').Strategy
+passport.use(new LinkedInStrategy({
+    consumerKey: 'linkedin-api-key',
+    consumerSecret: 'linkedin-secret-key',
+    callbackURL: 'http://localhost:' + (process.env.PORT || 3000) + '/users/auth/linkedin/callback',
+  },
+  async (token, tokenSecret, profile, done) => {
+    // Retrieve user from database, if exists
+    const user = await User.findOne(profile.emails[0].value)
+    if (user) {
+      done(null, user)
+    } else {
+      // If user not exist, create it
+      const newUser = {
+        firstName: profile.username,
+        lastName: profile.username,
+        password: 'password-is-from-linkedin',
+        email: profile.emails[0].value
+      }
+      const createdUser = await User.create(newUser)
+      if (createdUser) {
+        done(null, createdUser)
+      } else {
+        done(null, false)
+      }
+    }
+  }
+))
