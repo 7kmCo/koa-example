@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json.schemastore.org/solidaritySchema",
+  "requirements": {
+    "Node": [{ "rule": "cli", "binary": "node", "semver": ">=10" }],
+    "Package JSON": [{"rule": "file", "location": "./package.json"}],
+    "NPM": [{"rule": "cli","binary": "npm","semver": "6.9.0"}],
+    "TypeScript": [{"rule": "cli","binary": "tsc","semver": "3.4.5"}],
+    "Yarn": [{"rule": "cli","binary": "yarn","version": "--version","semver": ">=1.15"}]
+  }
+}

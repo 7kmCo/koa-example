@@ -1,0 +1,46 @@
+version: '3.6'
+services:
+  postgres:
+    #image: postgres
+    image: postgres:10-alpine
+    hostname: postgres
+    restart: unless-stopped
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    # To set password, use, etc. Default is u/p/db: postgres/none/postgres
+    environment:
+      POSTGRES_DB: $PG_DATABASE
+      POSTGRES_PASSWORD: $PG_PASSWORD
+      POSTGRES_USER: $PG_USERNAME
+
+  # Adminer is a lightweight db browser
+  # To login, use hostname = postgres and creds above
+  admin:
+    image: adminer
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
+  # PGAdmin is a heavyweight postgres browser
+  # To login, use the creds below
+  # After logging in, click "Add a server", use hostname = postgres and creds above
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5555:5555"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: $PG_PASSWORD
+      PGADMIN_LISTEN_PORT: 5555
+    restart: unless-stopped
+
+
+
+volumes:
+  db_data:

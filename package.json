@@ -1,39 +1,106 @@
 {
-  "name": "koa-boilerplate",
-  "version": "1.0.0",
-  "description": "Starter kit of Koa and Sequelize",
+  "name": "koa-passport-example",
+  "version": "0.0.0",
+  "description": "Starter kit of Koa and PosgreSQL",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app",
-    "start": "NODE_ENV=production node app"
+    "bootstrap": "solidarity && yarn install",
+    "dev": "solidarity && dotenv -- ts-node-dev app",
+    "start": "solidarity && dotenv -- ts-node app",
+    "test": "dotenv -- jest --detectOpenHandles --coverage",
+    "test:postgres:start": "cd test/db && docker-compose up --build",
+    "test:postgres:stop": "cd test/db && docker-compose stop",
+    "test:postgres:clean-data": "rm -rf test/db/db_data/*",
+    "test:postgres:clean-images": "docker stop $(docker ps -a -q); docker rm $(docker ps -a -q); docker volume prune -f; rm -rf postgres/db_data/*",
+    "test:postgres:cli": "psql -U postgres -h localhost",
+    "watch:ts": "dotenv -- nodemon -e ts,graphql -x ts-node --type-check src/index.ts",
+    "prettier": "prettier ./{src,test,tools}/**/*.ts --write",
+    "lint": "tslint --fix -t stylish -c ./tslint.json -p ./tsconfig.json",
+    "list:users": "dotenv -- ts-node ./tools/list-users.ts",
+    "upgrade-deps-hard": "npx ncu -u && yarn && yarn upgrade"
   },
-  "keywords": [
-    "koa",
-    "sequelize",
-    "mysql",
-    "koa",
-    "starter"
-  ],
-  "author": "Foad Yousefi <foadyousefi@gmail.com>",
-  "license": "MIT",
+  "author": "Brian Dombrowski <bdombro@gmail.com>",
+  "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/faker": "^4.1.5",
+    "@types/jest": "^24.0.13",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/koa": "^2.0.48",
+    "@types/node": "^12.0.2",
+    "@types/passport": "^1.0.0",
+    "@types/pg": "^7.4.14",
     "bcrypt": "^3.0.6",
+    "dotenv": "^8.0.0",
+    "dotenv-cli": "^2.0.0",
+    "faker": "^4.1.0",
+    "global": "^4.3.2",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
-    "koa-async-validator": "^0.1.2",
+    "koa-async-validator": "^0.2.1",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-passport": "^4.1.3",
     "koa-qs": "^2.0.0",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.0",
-    "mysql2": "^1.6.5",
-    "passport-facebook": "^2.1.1",
+    "lint-staged": "^8.1.7",
+    "passport-facebook": "^3.0.0",
     "passport-google-auth": "^1.0.2",
+    "passport-linkedin": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "sequelize": "^4.44.0"
+    "pg": "^7.11.0",
+    "pgtools": "^0.3.0",
+    "prettier": "^1.17.1",
+    "solidarity": "^2.3.1",
+    "solidarity-envinfo": "^1.0.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
   },
-  "devDependencies": {
-    "nodemon": "^1.19.0"
+  "lint-staged": {
+    "*.ts": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      ".ts": "ts-jest"
+    },
+    "testRegex": "\\.test\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "\\.test\\.ts$",
+      "/src/migrations/"
+    ],
+    "setupFilesAfterEnv": [
+      "./test/setupTests.ts"
+    ]
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=9999.0.0",
+    "yarn": ">=1.9.4"
   }
 }
